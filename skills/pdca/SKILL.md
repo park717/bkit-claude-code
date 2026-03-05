@@ -81,6 +81,7 @@ task-template: "[PDCA] {feature}"
 4. Create Task: `[Plan] {feature}`
 5. Update .bkit-memory.json: phase = "plan"
 6. Write `## Executive Summary` at document top with 4-perspective table (Problem/Solution/Function UX Effect/Core Value), each 1-2 sentences
+7. **MANDATORY**: After completing the document, also output the Executive Summary table in your response so the user sees it immediately without opening the file
 
 **Output Path**: `docs/01-plan/features/{feature}.plan.md`
 
@@ -141,7 +142,8 @@ task-template: "[PDCA] {feature}"
 2. **Call report-generator Agent**
 3. Integrated report of Plan, Design, Implementation, Analysis
 4. Include `## Executive Summary` with `### 1.3 Value Delivered` reflecting actual results (4 perspectives with metrics)
-5. Create Task: `[Report] {feature}`
+5. **MANDATORY**: After completing the report, also output the Executive Summary table in your response
+6. Create Task: `[Report] {feature}`
 6. Update .bkit-memory.json: phase = "completed"
 
 **Output Path**: `docs/04-report/{feature}.report.md`

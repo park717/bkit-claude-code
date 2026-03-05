@@ -143,7 +143,7 @@ function main() {
     }
   }
 
-  // v1.5.9: Show Next Action options for manual mode (plan/report completion)
+  // v1.5.9: Executive Summary + Next Action for manual mode (plan/report completion)
   if (detectedPhase === 'plan' || detectedPhase === 'report') {
     const featureStatus = getPdcaStatusFull()?.features?.[featureName] || {};
     const questionPayload = buildNextActionQuestion(detectedPhase, featureName, {
@@ -152,11 +152,21 @@ function main() {
     });
     const formatted = formatAskUserQuestion(questionPayload);
 
+    // v1.5.9: P2-FR-07 Executive Summary + AskUserQuestion sequential output
+    const { generateExecutiveSummary, formatExecutiveSummary } = require('../lib/common.js');
+    const summary = generateExecutiveSummary(featureName, detectedPhase);
+    const summaryText = formatExecutiveSummary(summary, 'full');
+
     const manualResponse = {
       systemMessage: [
         `## PDCA ${detectedPhase.toUpperCase()} Completed`,
         '',
         `**Feature**: ${featureName}`,
+        '',
+        summaryText,
+        '',
+        `---`,
+        '',
         `**Please select next step.**`
       ].join('\n'),
       userPrompt: JSON.stringify(formatted)

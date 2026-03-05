@@ -27,13 +27,13 @@
 +---------------------------------------------+
 |  Match Rate: 100%                           |
 +---------------------------------------------+
-|  Complete:     34 / 34 items                |
-|  In Progress:   0 / 34 items                |
-|  Cancelled:     0 / 34 items                |
+|  Complete:     37 / 37 items                |
+|  In Progress:   0 / 37 items                |
+|  Cancelled:     0 / 37 items                |
 +---------------------------------------------+
 |  Check-Act Iterations: 1                    |
-|  Files Changed: 26 (22 modified + 4 new)    |
-|  Lines: +3,100 / -108                       |
+|  Files Changed: 30 (26 modified + 4 new)    |
+|  Lines: +3,211 / -159                       |
 +---------------------------------------------+
 ```
 
@@ -42,8 +42,8 @@
 | 관점 | 내용 |
 |------|------|
 | **Problem** | PDCA 문서화 완료 후 사용자가 결과 컨텍스트 없이 Next Action을 선택해야 했으며, AskUserQuestion에 preview 필드 미지원으로 선택지의 실행 결과를 미리 볼 수 없었음 |
-| **Solution** | 3종 템플릿에 Executive Summary 4관점 테이블 추가, `executive-summary.js` 신규 모듈 3개 함수, `formatAskUserQuestion()` preview 확장, `buildNextActionQuestion()` 3단계 헬퍼, ENH-74/75/76/79/81 통합 |
-| **Function/UX Effect** | 문서 완료 시 즉시 4관점 요약 표시 (스크롤 불필요), Next Action 선택지에 preview로 실행 예상 결과 Markdown 제공, CTO Team 품질 게이트(continue:false)로 불필요한 에이전트 실행 자동 중지, 3개 에이전트 Output Efficiency 가이드로 출력 간결화 |
+| **Solution** | 3종 템플릿에 Executive Summary 4관점 테이블 추가, `executive-summary.js` 신규 모듈 3개 함수, `formatAskUserQuestion()` preview 확장, `buildNextActionQuestion()` 3단계 헬퍼, ENH-74/75/76/79/81 통합, pdca-skill-stop.js Executive Summary 연동, plan-plus-stop.js 핸들러 등록 |
+| **Function/UX Effect** | 문서 완료 시 즉시 4관점 요약 표시 (스크롤 불필요), Next Action 선택지에 preview로 실행 예상 결과 Markdown 제공, CTO Team 품질 게이트(continue:false)로 불필요한 에이전트 실행 자동 중지, 3개 에이전트 Output Efficiency 가이드로 출력 간결화, SKILL.md에 MANDATORY response output 규칙 추가 |
 | **Core Value** | PDCA 사이클의 각 문서화 단계가 "행동 가능한 의사결정 도구"로 진화하여 AI-native 개발 생산성 극대화. bkit의 핵심 철학인 "맥락 있는 의사결정"을 코드 레벨에서 실현 |
 
 ---
@@ -56,7 +56,7 @@
 | Plan 2 | [bkit-v159-askuserquestion-preview-ux.plan.md](../../01-plan/features/bkit-v159-askuserquestion-preview-ux.plan.md) | Finalized |
 | Design | [bkit-v159-executive-summary.design.md](../../02-design/features/bkit-v159-executive-summary.design.md) | Finalized |
 | Check | Gap Analysis (4 parallel agents) | Complete (100%) |
-| Report | 현재 문서 | Writing |
+| Report | 현재 문서 | Complete |
 
 ---
 
@@ -214,10 +214,11 @@ scripts/*.js (consumers)
 | B-03 | lib/common.js Automation 주석 "11 exports" (실제 14) | "14 exports"로 정정 | Fixed |
 | B-04 | scripts/pdca-task-completed.js에 PDCA_TASK_PATTERNS 중복 | detectPdcaFromTaskSubject() import로 대체 | Fixed |
 | B-05 | scripts/subagent-stop-handler.js에 agent_type 미추출 | agentType 추출 + hookSpecificOutput 포함 | Fixed |
+| B-06 | lib/common.js PDCA Module 주석 "54 exports" (실제 65) | "65 exports"로 정정 | Fixed |
 
 ---
 
-## 7. 변경 파일 목록 (26개)
+## 7. 변경 파일 목록 (30개)
 
 ### 7.1 신규 파일 (4개)
 
@@ -254,6 +255,10 @@ scripts/*.js (consumers)
 | 20 | `hooks/session-start.js` | ENH-81 CTO stability + v1.5.8->v1.5.9 |
 | 21 | `.claude-plugin/plugin.json` | version "1.5.9" |
 | 22 | `bkit.config.json` | version "1.5.9" |
+| 23 | `scripts/pdca-skill-stop.js` | Korean→English, Executive Summary + AskUserQuestion 통합 |
+| 24 | `scripts/pdca-task-completed.js` | P2-FR-07 Executive Summary sequential output |
+| 25 | `scripts/unified-stop.js` | plan-plus-stop.js 핸들러 등록 |
+| 26 | `skills/plan-plus/SKILL.md` | MANDATORY Executive Summary response output |
 
 ---
 
@@ -279,7 +284,40 @@ scripts/*.js (consumers)
 
 ---
 
-## 9. 다음 단계
+## 9. Post-Report 추가 변경 (8개 파일)
+
+보고서 커밋(`de404be`) 이후 추가 개선 작업으로 8개 파일이 변경되었습니다.
+
+### 9.1 추가 완료 항목 (3 FR)
+
+| ID | 요구사항 | 상태 | 비고 |
+|----|----------|------|------|
+| FR-16 | pdca-skill-stop.js에 Executive Summary + AskUserQuestion 통합 (P2-FR-07) | Complete | plan/report 완료 시 summaryText + nextAction 출력 |
+| FR-17 | pdca/SKILL.md, plan-plus/SKILL.md에 MANDATORY response output 규칙 추가 | Complete | Executive Summary를 파일뿐 아니라 응답에도 출력 |
+| FR-18 | unified-stop.js에 plan-plus-stop.js 핸들러 등록 | Complete | plan-plus 스킬 Stop 이벤트 라우팅 |
+
+### 9.2 변경 파일 상세
+
+| # | 파일 | 변경 요약 |
+|---|------|----------|
+| 1 | `scripts/pdca-skill-stop.js` | Korean→English 전환 (30+ strings), Executive Summary + AskUserQuestion 통합, version 1.5.9 |
+| 2 | `scripts/pdca-task-completed.js` | P2-FR-07 Executive Summary sequential output (generateExecutiveSummary + formatExecutiveSummary) |
+| 3 | `scripts/unified-stop.js` | plan-plus-stop.js 핸들러 등록 |
+| 4 | `lib/common.js` | PDCA Module 주석 "54 exports" → "65 exports" 정정 |
+| 5 | `lib/pdca/automation.js` | version 1.5.9, template literal 수정 |
+| 6 | `lib/pdca/index.js` | version 1.5.9 |
+| 7 | `skills/pdca/SKILL.md` | step 7 MANDATORY response output 추가 |
+| 8 | `skills/plan-plus/SKILL.md` | Executive Summary Response MANDATORY 추가 |
+
+### 9.3 품질 영향
+
+- **Match Rate 유지**: 100% (기존 34 항목 + 신규 3 항목 = 37/37 PASS)
+- **Korean→English**: pdca-skill-stop.js에서 30+ 한국어 문자열을 영어로 변환
+- **Bug Fix**: lib/common.js PDCA Module export 수 주석 불일치 수정 (B-06)
+
+---
+
+## 10. 다음 단계
 
 | 순서 | 행동 | 명령 |
 |------|------|------|
@@ -290,5 +328,6 @@ scripts/*.js (consumers)
 ---
 
 > Generated by bkit PDCA Report Generator
-> Match Rate: 100% | Iterations: 1 | Files: 26
+> Match Rate: 100% | Items: 37/37 | Iterations: 1 | Files: 30
 > Branch: feature/bkit-v1.5.9-executive-summary
+> Updated: 2026-03-05 (Post-Report changes included)

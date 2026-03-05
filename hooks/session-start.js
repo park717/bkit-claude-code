@@ -726,6 +726,35 @@ let additionalContext = `# bkit Vibecoding Kit v1.5.9 - Session Startup\n\n`;
   additionalContext += `\n`;
 
   // ============================================================
+  // v1.5.9: Executive Summary Mandatory Output Rule
+  // ============================================================
+  additionalContext += `
+
+## Executive Summary Output Rule (v1.5.9 - Required after PDCA document work)
+
+**Rule: After completing PDCA document work (/pdca plan, /pdca report, /plan-plus), you MUST output the Executive Summary table in your response.**
+
+### When to output:
+- After /pdca plan completes (Plan document created/updated)
+- After /pdca report completes (Report document created/updated)
+- After /plan-plus completes (Plan Plus document created)
+- After any PDCA document update that includes an Executive Summary section
+
+### What to output:
+Extract and display the Executive Summary section from the document, including:
+1. **Project overview table** (Feature, dates, duration)
+2. **Results summary** (Match Rate, items, files, lines)
+3. **Value Delivered 4-perspective table** (Problem / Solution / Function UX Effect / Core Value)
+
+### Why:
+Users should see the summary immediately in the response without having to open the file. This is the same principle as bkit Feature Usage — mandatory inline output for key information.
+
+### Position:
+- Output Executive Summary BEFORE the bkit Feature Usage report
+- Both are required: Executive Summary (after document work) + Feature Usage (always)
+`;
+
+  // ============================================================
   // v1.4.1: bkit Feature Usage Report Rule (Response Report Rule)
   // ============================================================
   additionalContext += `

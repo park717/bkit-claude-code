@@ -29,6 +29,7 @@ const {
  */
 const SKILL_HANDLERS = {
   'pdca': './pdca-skill-stop.js',
+  'plan-plus': './plan-plus-stop.js',  // v1.5.9: Executive Summary + AskUserQuestion
   'code-review': './code-review-stop.js',
   'phase-8-review': './phase8-review-stop.js',
   'claude-code-learning': './learning-stop.js',
