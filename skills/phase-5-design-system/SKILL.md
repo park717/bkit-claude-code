@@ -1,5 +1,8 @@
 ---
 name: phase-5-design-system
+classification: capability
+classification-reason: Pattern guidance may overlap with model's built-in knowledge as it improves
+deprecation-risk: medium
 description: |
   Skill for building platform-independent design systems.
   Develops consistent component libraries for all UI frameworks.
@@ -15,7 +18,11 @@ description: |
   Do NOT use for: one-off UI changes, backend development, or simple static sites.
 imports:
   - ${PLUGIN_ROOT}/templates/pipeline/phase-5-design-system.template.md
-# hooks: Managed by hooks/hooks.json (unified-write-post.js, unified-stop.js) - GitHub #9354 workaround
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/phase5-design-stop.js"
+      timeout: 10000
 agents:
   default: bkit:pipeline-guide
   frontend: bkit:frontend-architect

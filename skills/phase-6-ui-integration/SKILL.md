@@ -1,5 +1,8 @@
 ---
 name: phase-6-ui-integration
+classification: capability
+classification-reason: Pattern guidance may overlap with model's built-in knowledge as it improves
+deprecation-risk: medium
 description: |
   Skill for implementing actual UI and integrating with APIs.
   Covers frontend-backend integration, state management, and API client architecture.
@@ -15,7 +18,11 @@ description: |
   Do NOT use for: mockup creation, backend-only development, or design system setup.
 imports:
   - ${PLUGIN_ROOT}/templates/pipeline/phase-6-ui.template.md
-# hooks: Managed by hooks/hooks.json (unified-write-post.js, unified-stop.js) - GitHub #9354 workaround
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/phase6-ui-stop.js"
+      timeout: 10000
 agents:
   default: bkit:pipeline-guide
   frontend: bkit:frontend-architect

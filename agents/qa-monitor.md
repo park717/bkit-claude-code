@@ -20,7 +20,11 @@ imports:
   - ${PLUGIN_ROOT}/templates/shared/error-handling-patterns.md
 permissionMode: acceptEdits
 memory: project
-# hooks: Managed by hooks/hooks.json (unified-bash-pre.js, unified-write-post.js, unified-bash-post.js, unified-stop.js) - GitHub #9354 workaround
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/qa-stop.js"
+      timeout: 10000
 model: haiku
 tools:
   - Bash

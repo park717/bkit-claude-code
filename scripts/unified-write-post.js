@@ -11,6 +11,7 @@
  */
 
 const path = require('path');
+const fs = require('fs');
 const {
   readStdinSync,
   parseHookInput,
@@ -19,6 +20,7 @@ const {
   getActiveAgent,
   outputAllow
 } = require('../lib/common.js');
+const { validateDocument, formatValidationWarning } = require('../lib/pdca/template-validator.js');
 
 // ============================================================
 // Handler: pdca-post-write (always runs - core bkit-rules)
@@ -157,6 +159,26 @@ if (activeSkill === 'phase-6-ui-integration') {
 
 if (activeAgent === 'qa-monitor') {
   handleQaMonitorPost(input, filePath);
+}
+
+// v1.6.0 ENH-103: PDCA template validation
+if (filePath) {
+  try {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const result = validateDocument(filePath, content);
+
+    if (!result.valid && result.missing.length > 0) {
+      const warning = formatValidationWarning(result);
+      debugLog('UnifiedWritePost', 'Template validation failed', {
+        filePath, type: result.type, missing: result.missing
+      });
+      outputAllow(warning, 'PostToolUse');
+      debugLog('UnifiedWritePost', 'Hook completed with template warning');
+      process.exit(0);
+    }
+  } catch (e) {
+    debugLog('UnifiedWritePost', 'Template validation error', { error: e.message });
+  }
 }
 
 // Output allow (PostToolUse doesn't block)

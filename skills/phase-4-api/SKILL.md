@@ -1,5 +1,8 @@
 ---
 name: phase-4-api
+classification: capability
+classification-reason: Pattern guidance may overlap with model's built-in knowledge as it improves
+deprecation-risk: medium
 description: |
   Skill for designing and implementing backend APIs.
   Includes Zero Script QA methodology for validating APIs without test scripts.
@@ -15,7 +18,11 @@ imports:
   - ${PLUGIN_ROOT}/templates/pipeline/phase-4-api.template.md
   - ${PLUGIN_ROOT}/templates/shared/api-patterns.md
   - ${PLUGIN_ROOT}/templates/shared/error-handling-patterns.md
-# hooks: Managed by hooks/hooks.json (unified-stop.js) - GitHub #9354 workaround
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/phase4-api-stop.js"
+      timeout: 10000
 agent: bkit:qa-monitor
 allowed-tools:
   - Read

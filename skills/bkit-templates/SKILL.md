@@ -1,5 +1,8 @@
 ---
 name: bkit-templates
+classification: workflow
+classification-reason: Process automation persists regardless of model advancement
+deprecation-risk: none
 description: |
   PDCA document templates for consistent documentation.
   Plan, Design, Analysis, and Report templates with proper structure.

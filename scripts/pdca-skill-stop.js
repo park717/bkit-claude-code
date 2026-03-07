@@ -377,8 +377,8 @@ debugLog('Skill:pdca:Stop', 'Hook completed', {
   hasNextStep: !!nextStep?.nextAction
 });
 
-// v1.5.9: Executive Summary + AskUserQuestion for plan/report (P2-FR-07)
-if (feature && (action === 'plan' || action === 'report') && !autoTrigger) {
+// v1.6.0: Executive Summary + AskUserQuestion for plan/design/report (ENH-103)
+if (feature && (action === 'plan' || action === 'design' || action === 'report') && !autoTrigger) {
   const summary = generateExecutiveSummary(feature, action);
   const summaryText = formatExecutiveSummary(summary, 'full');
 

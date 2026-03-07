@@ -35,7 +35,11 @@ tools:
   - Grep
   - Task
   - LSP
-# hooks: Managed by hooks/hooks.json (pre-write.js blocks Write/Edit, unified-stop.js) - GitHub #9354 workaround
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/analysis-stop.js"
+      timeout: 10000
 ---
 
 # Code Analysis Agent

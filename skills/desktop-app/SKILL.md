@@ -1,5 +1,8 @@
 ---
 name: desktop-app
+classification: capability
+classification-reason: Specialized domain knowledge with limited model overlap
+deprecation-risk: low
 description: |
   Desktop app development guide for cross-platform desktop applications.
   Covers Electron and Tauri frameworks.

@@ -1,5 +1,8 @@
 ---
 name: claude-code-learning
+classification: capability
+classification-reason: Highly likely to be subsumed by model's native capabilities
+deprecation-risk: high
 description: |
   Claude Code learning and education skill.
   Teaches users how to configure and optimize Claude Code settings.
@@ -35,7 +38,11 @@ imports:
 next-skill: null
 pdca-phase: null
 task-template: "[Learn] Claude Code {level}"
-# hooks: Managed by hooks/hooks.json (unified-stop.js) - GitHub #9354 workaround
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/learning-stop.js"
+      timeout: 10000
 ---
 
 # Claude Code Learning Skill
@@ -256,3 +263,22 @@ Files to analyze:
 - .claude/agents/
 - .claude/skills/
 - .mcp.json
+
+## Skills 2.0 Hot Reload (CC 2.1.0+)
+
+CC 2.1.0+ supports hot reload for skill changes. No session restart needed.
+
+### Hot Reload Scope
+- SKILL.md body changes: Instant reflection
+- Frontmatter field changes: Instant reflection
+- New skill additions: Instant reflection
+
+### Development Workflow
+1. Edit SKILL.md content and save
+2. Next slash invoke reflects changes immediately
+3. Use `/reload-plugins` for forced refresh
+
+### Tips
+- Test with `/eval run [skill-name]` after changes
+- Use `classification` frontmatter to categorize skills
+- Monitor with `/loop 5m /pdca status` for ongoing work

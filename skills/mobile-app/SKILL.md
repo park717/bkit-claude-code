@@ -1,5 +1,8 @@
 ---
 name: mobile-app
+classification: capability
+classification-reason: Specialized domain knowledge with limited model overlap
+deprecation-risk: low
 description: |
   Mobile app development guide for cross-platform apps.
   Covers React Native, Flutter, and Expo frameworks.

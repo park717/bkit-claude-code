@@ -135,13 +135,13 @@ try {
   importResolver = null;
 }
 
-// v1.4.2: Context Fork (FR-03)
+// v1.6.0: Context Fork (FR-03) - DEPRECATED, kept for backward compatibility
+// Use CC native context:fork in agent/skill frontmatter instead (ENH-85)
 let contextFork;
 try {
   contextFork = require('../lib/context-fork.js');
 } catch (e) {
-  // Fallback if module not available
-  contextFork = null;
+  contextFork = null; // OK - native context:fork handles this
 }
 
 // Log session start
@@ -565,7 +565,7 @@ const triggerTable = getTriggerKeywordTable();
 
 // Claude Code Output: JSON with Tool Call Prompt
 // Build context based on onboarding type
-let additionalContext = `# bkit Vibecoding Kit v1.5.9 - Session Startup\n\n`;
+let additionalContext = `# bkit Vibecoding Kit v1.6.0 - Session Startup\n\n`;
 
   if (onboardingData.hasExistingWork) {
     additionalContext += `## 🔄 Previous Work Detected\n\n`;
@@ -715,6 +715,20 @@ let additionalContext = `# bkit Vibecoding Kit v1.5.9 - Session Startup\n\n`;
   additionalContext += `- bkit memory path: \`.bkit/state/memory.json\` (was \`docs/.bkit-memory.json\`)\n`;
   additionalContext += `\n`;
 
+  // v1.6.0: Skills 2.0 Integration (ENH-85~103)
+  additionalContext += `## v1.6.0 Enhancements (Skills 2.0 Integration)\n`;
+  additionalContext += `- CC recommended version: v2.1.71 (stdin freeze fix, background agent recovery)\n`;
+  additionalContext += `- Skills 2.0: context:fork native, frontmatter hooks, Skill Evals, Skill Classification\n`;
+  additionalContext += `- 27 skills classified: 9 Workflow / 16 Capability / 2 Hybrid\n`;
+  additionalContext += `- PDCA document template validation (PostToolUse hook, ENH-103)\n`;
+  additionalContext += `- Skill Creator + A/B Testing framework (evals/ directory)\n`;
+  additionalContext += `- /loop + Cron PDCA auto-monitoring (CC v2.1.71+)\n`;
+  additionalContext += `- Hot reload: SKILL.md changes reflect without session restart\n`;
+  additionalContext += `- Wildcard permissions: \`Bash(npm *)\`, \`Bash(git log*)\` patterns\n`;
+  additionalContext += `- Background agent recovery: CTO Team bg agents reliable (CC v2.1.71+)\n`;
+  additionalContext += `- 37 consecutive CC compatible releases (v2.1.34~v2.1.71)\n`;
+  additionalContext += `\n`;
+
   // v1.5.7: Enhancements awareness
   additionalContext += `## v1.5.7 Enhancements\n`;
   additionalContext += `- CC v2.1.63 HTTP hooks support: \`type: "http"\` in hooks config\n`;
@@ -730,12 +744,13 @@ let additionalContext = `# bkit Vibecoding Kit v1.5.9 - Session Startup\n\n`;
   // ============================================================
   additionalContext += `
 
-## Executive Summary Output Rule (v1.5.9 - Required after PDCA document work)
+## Executive Summary Output Rule (v1.6.0 - Required after PDCA document work)
 
-**Rule: After completing PDCA document work (/pdca plan, /pdca report, /plan-plus), you MUST output the Executive Summary table in your response.**
+**Rule: After completing PDCA document work (/pdca plan, /pdca design, /pdca report, /plan-plus), you MUST output the Executive Summary table in your response.**
 
 ### When to output:
 - After /pdca plan completes (Plan document created/updated)
+- After /pdca design completes (Design document created/updated)
 - After /pdca report completes (Report document created/updated)
 - After /plan-plus completes (Plan Plus document created)
 - After any PDCA document update that includes an Executive Summary section
@@ -815,7 +830,7 @@ AskUserQuestion, SessionStart Hook, Read, Write, Edit, Bash
 `;
 
 const response = {
-  systemMessage: `bkit Vibecoding Kit v1.5.9 activated (Claude Code)`,
+  systemMessage: `bkit Vibecoding Kit v1.6.0 activated (Claude Code)`,
   hookSpecificOutput: {
     hookEventName: "SessionStart",
     onboardingType: onboardingData.type,

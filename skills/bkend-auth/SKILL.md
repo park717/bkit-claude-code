@@ -1,5 +1,8 @@
 ---
 name: bkend-auth
+classification: capability
+classification-reason: Pattern guidance may overlap with model's built-in knowledge as it improves
+deprecation-risk: medium
 description: |
   bkend.ai authentication and security expert skill.
   Covers email signup/login, social login (Google, GitHub), magic link,

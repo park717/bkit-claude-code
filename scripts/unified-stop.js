@@ -26,6 +26,9 @@ const {
  * Skill Stop Handlers
  * Key: skill name (from SKILL.md frontmatter)
  * Value: handler module path (relative to scripts/)
+ *
+ * @deprecated v1.6.0 - Skill Stop handlers migrated to skill frontmatter hooks (ENH-86).
+ * This registry is retained as fallback for backward compatibility.
  */
 const SKILL_HANDLERS = {
   'pdca': './pdca-skill-stop.js',
@@ -45,6 +48,9 @@ const SKILL_HANDLERS = {
  * Agent Stop Handlers
  * Key: agent name (from agent.md frontmatter)
  * Value: handler module path (relative to scripts/)
+ *
+ * @deprecated v1.6.0 - Agent Stop handlers migrated to agent frontmatter hooks (ENH-86).
+ * This registry is retained as fallback for backward compatibility.
  */
 const AGENT_HANDLERS = {
   'gap-detector': './gap-detector-stop.js',

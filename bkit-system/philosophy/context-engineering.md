@@ -901,6 +901,66 @@ All new capabilities are guarded by `getFeatureFlags()` checks, ensuring backwar
 
 ---
 
+## v1.6.0 Enhancements
+
+### Skill Classification System (ENH-90)
+
+All 27 bkit skills are classified into three categories:
+
+| Classification | Count | Description | Deprecation Risk |
+|:---:|:---:|---|---|
+| **Workflow** | 9 | Process automation, model-independent | none |
+| **Capability** | 16 | Guidance that may become redundant as models improve | low~high |
+| **Hybrid** | 2 | Combines workflow and capability features | low |
+
+Key principle: **Workflow skills are bkit's core value** — PDCA methodology, pipeline management, coding rules, QA processes persist regardless of model advancement.
+
+### Skill Lifecycle Management (ENH-99)
+
+Capability skills follow a data-driven deprecation process:
+
+**Deprecation Criteria**:
+1. Evals parity test: model achieves 85%+ of skill-assisted quality without the skill
+2. 3 consecutive parity test passes trigger deprecation candidate status
+3. CTO manual approval required before deprecated marking
+4. 2 releases retention period before removal
+
+**Deprecation Process**:
+```
+active → candidate (parity data) → deprecated (v1.6.x) → removed (v1.7.0+)
+```
+
+**Deprecation Risk Assessment**:
+- `none`: Workflow skills — permanently valuable
+- `low`: Specialized domain knowledge (enterprise, mobile-app, desktop-app)
+- `medium`: General development guidance (phase-1~9, bkend-*)
+- `high`: Content likely subsumed by model (claude-code-learning, phase-3-mockup)
+
+### CC 2.1.0 Compatibility Matrix (ENH-98)
+
+| CC Feature | bkit v1.5.9 | bkit v1.6.0 | Migration |
+|---|:---:|:---:|---|
+| context:fork (native) | FR-03 custom (228 lines) | Native frontmatter | Deprecated, fallback retained |
+| Frontmatter hooks | N/A (hooks.json only) | 16 agents + 10 skills | Gradual migration |
+| Skill hot reload | Supported (passive) | Documented + guided | ENH-87 |
+| / invoke | Supported (27 skills) | Documented | ENH-96 |
+| Wildcard permissions | Not documented | Guided in bkit-rules | ENH-95 |
+| Skill Creator | N/A | Integrated workflow | ENH-97 |
+| Skill Evals | N/A | 27 evals + A/B testing | ENH-88, ENH-89 |
+| Skill Classification | N/A | 27 skills classified | ENH-90 |
+| /loop + Cron | N/A | PDCA auto-monitoring | ENH-100 |
+
+### CC Version Compatibility
+
+```
+v2.1.34~v2.1.71: 37 consecutive compatible releases
+Breaking Changes: 0 (across all 37 releases)
+CC 2.1.0 (Skills 2.0): 100% backward compatible (additive features)
+Recommended version: v2.1.71 (stdin freeze fix, background agent recovery)
+```
+
+---
+
 ## Related Documents
 
 - [[core-mission]] - Three core philosophies

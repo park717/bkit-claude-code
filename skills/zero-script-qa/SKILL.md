@@ -1,5 +1,8 @@
 ---
 name: zero-script-qa
+classification: workflow
+classification-reason: Process automation persists regardless of model advancement
+deprecation-risk: none
 description: |
   Zero Script QA - Testing methodology without test scripts.
   Uses structured JSON logging and real-time Docker monitoring for verification.
@@ -16,7 +19,11 @@ description: |
 context: fork
 agent: bkit:qa-monitor
 user-invocable: true
-# hooks: Managed by hooks/hooks.json (unified-bash-pre.js, unified-stop.js) - GitHub #9354 workaround
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/qa-stop.js"
+      timeout: 10000
 ---
 
 # Zero Script QA Expert Knowledge

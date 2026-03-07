@@ -1,5 +1,8 @@
 ---
 name: pdca
+classification: workflow
+classification-reason: PDCA process automation independent of model capability evolution
+deprecation-risk: none
 description: |
   Unified skill for managing the entire PDCA cycle.
   Auto-triggered by keywords: "plan", "design", "analyze", "report", "status".
@@ -46,7 +49,11 @@ imports:
 next-skill: null
 pdca-phase: null
 task-template: "[PDCA] {feature}"
-# hooks: Managed by hooks/hooks.json (unified-stop.js) - GitHub #9354 workaround
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/pdca-skill-stop.js"
+      timeout: 10000
 ---
 
 # PDCA Skill
@@ -475,3 +482,33 @@ Auto-suggest related action when detecting these keywords:
 | "complete", "report", "summary" | report |
 | "archive", "store" | archive |
 | "cleanup", "clean", "remove old" | cleanup |
+
+## Slash Invoke Pattern (CC 2.1.0+)
+
+Skills 2.0 enables direct slash invocation for all PDCA commands:
+
+- `/pdca plan [feature]` — Create Plan document
+- `/pdca design [feature]` — Create Design document
+- `/pdca do [feature]` — Implementation guide
+- `/pdca analyze [feature]` — Gap analysis (Check phase)
+- `/pdca iterate [feature]` — Auto-improvement (Act phase)
+- `/pdca report [feature]` — Completion report
+- `/pdca status` — Current PDCA status
+- `/pdca next` — Next phase guide
+- `/plan-plus [feature]` — Brainstorming-enhanced planning
+
+Hot reload: SKILL.md changes reflect without session restart (CC 2.1.0+).
+
+## PDCA Auto-Monitoring (CC v2.1.71+)
+
+CC v2.1.71 introduces `/loop` command and Cron tools for automated monitoring.
+
+### Usage Examples
+- `/loop 5m /pdca status` - Check PDCA status every 5 minutes
+- `/loop 10m /pdca analyze [feature]` - Run Gap analysis every 10 minutes
+- Use Cron tools for session-level scheduled checks
+
+### CTO Team Integration
+- Long CTO Team sessions benefit from `/loop` for progress monitoring
+- stdin freeze fixed in v2.1.71 ensures reliable long sessions
+- Background agent recovery (v2.1.71) makes `background: true` agents reliable

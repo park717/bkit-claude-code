@@ -43,7 +43,11 @@ tools:
   - Task(gap-detector)
   - TodoWrite
   - LSP
-# hooks: Managed by hooks/hooks.json (unified-stop.js) - GitHub #9354 workaround
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/iterator-stop.js"
+      timeout: 10000
 ---
 
 # PDCA Iterator Agent

@@ -1,5 +1,8 @@
 ---
 name: phase-9-deployment
+classification: capability
+classification-reason: Pattern guidance may overlap with model's built-in knowledge as it improves
+deprecation-risk: medium
 description: |
   Skill for deploying to production environment.
   Covers CI/CD, environment configuration, and deployment strategies.
@@ -15,7 +18,11 @@ description: |
   Do NOT use for: local development, design phase, or feature implementation.
 imports:
   - ${PLUGIN_ROOT}/templates/pipeline/phase-9-deployment.template.md
-# hooks: Managed by hooks/hooks.json (unified-bash-pre.js, unified-stop.js) - GitHub #9354 workaround
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/phase9-deploy-stop.js"
+      timeout: 10000
 agent: bkit:infra-architect
 allowed-tools:
   - Read

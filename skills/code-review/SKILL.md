@@ -1,5 +1,8 @@
 ---
 name: code-review
+classification: workflow
+classification-reason: Process automation persists regardless of model advancement
+deprecation-risk: none
 description: |
   Code review skill for analyzing code quality, detecting bugs, and ensuring best practices.
   Provides comprehensive code review with actionable feedback.
@@ -29,7 +32,11 @@ imports:
 next-skill: null
 pdca-phase: check
 task-template: "[Code-Review] {feature}"
-# hooks: Managed by hooks/hooks.json (unified-stop.js) - GitHub #9354 workaround
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/code-review-stop.js"
+      timeout: 10000
 ---
 
 # Code Review Skill
