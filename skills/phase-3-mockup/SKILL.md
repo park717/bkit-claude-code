@@ -1,5 +1,8 @@
 ---
 name: phase-3-mockup
+classification: capability
+classification-reason: Highly likely to be subsumed by model's native capabilities
+deprecation-risk: high
 description: |
   Skill for creating mockups with UI/UX trends without a designer.
   Designs HTML/CSS/JS prototypes that can be converted to Next.js components.

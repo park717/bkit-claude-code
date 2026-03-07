@@ -1,5 +1,8 @@
 ---
 name: bkit-rules
+classification: workflow
+classification-reason: Process automation persists regardless of model advancement
+deprecation-risk: none
 description: |
   Core rules for bkit plugin. PDCA methodology, level detection, agent auto-triggering, and code quality standards.
   These rules are automatically applied to ensure consistent AI-native development.
@@ -266,9 +269,34 @@ Agent Memory is automatically active for all bkit agents. No user action require
 - When agent is invoked: Agent may reference previous session context
 - No configuration needed — fully automatic
 
-## 9. Plugin Hot Reload (v1.5.9)
+## 9. Plugin Hot Reload (v1.6.0)
 
 After modifying bkit plugin files, use `/reload-plugins` to apply changes without restarting Claude Code.
 - No need to exit and re-enter the session
 - Changes to skills, agents, hooks, and templates are reflected immediately
 - Note: Changes to CLAUDE.md require `/clear` to fully refresh
+
+## Wildcard Permissions (CC 2.1.0+)
+
+CC 2.1.0+ supports `Bash(pattern*)` wildcard permissions.
+
+### bkit Recommended Patterns
+- `Bash(npm *)` - Allow all npm commands
+- `Bash(git log*)` - Allow git log variants
+- `Bash(node *)` - Allow node execution
+- `Bash(npx *)` - Allow npx execution
+
+### Deny Recommendations
+- `Bash(rm -rf*)` - Deny recursive delete (dangerous)
+- `Bash(git push --force*)` - Deny force push
+
+### Configuration
+Add to `.claude/settings.json`:
+```json
+{
+  "permissions": {
+    "allow": ["Bash(npm *)", "Bash(git log*)"],
+    "deny": ["Bash(rm -rf*)"]
+  }
+}
+```

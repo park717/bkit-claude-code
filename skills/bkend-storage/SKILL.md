@@ -1,5 +1,8 @@
 ---
 name: bkend-storage
+classification: capability
+classification-reason: Pattern guidance may overlap with model's built-in knowledge as it improves
+deprecation-risk: medium
 description: |
   bkend.ai file storage expert skill.
   Covers single/multiple/multipart file upload via Presigned URL,

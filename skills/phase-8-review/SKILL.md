@@ -1,5 +1,8 @@
 ---
 name: phase-8-review
+classification: workflow
+classification-reason: Process automation persists regardless of model advancement
+deprecation-risk: none
 description: |
   Skill for verifying overall codebase quality and gap analysis.
   Covers architecture consistency, convention compliance, design-implementation gaps,
@@ -17,7 +20,11 @@ description: |
   Do NOT use for: initial development, design phase, or deployment tasks.
 imports:
   - ${PLUGIN_ROOT}/templates/pipeline/phase-8-review.template.md
-# hooks: Managed by hooks/hooks.json (unified-stop.js) - GitHub #9354 workaround
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/phase8-review-stop.js"
+      timeout: 10000
 agents:
   default: bkit:code-analyzer
   validate: bkit:design-validator

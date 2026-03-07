@@ -1,5 +1,8 @@
 ---
 name: plan-plus
+classification: hybrid
+classification-reason: Combines workflow automation with capability-dependent features
+deprecation-risk: low
 description: |
   Plan Plus — Brainstorming-Enhanced PDCA Planning.
   Combines intent discovery from brainstorming methodology with bkit PDCA's structured planning.
@@ -38,6 +41,11 @@ imports:
 next-skill: pdca design
 pdca-phase: plan
 task-template: "[Plan Plus] {feature}"
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/plan-plus-stop.js"
+      timeout: 10000
 ---
 
 # Plan Plus — Brainstorming-Enhanced PDCA Planning

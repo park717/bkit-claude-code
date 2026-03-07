@@ -1,8 +1,8 @@
 # bkit - Vibecoding Kit
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-v2.1.63+-purple.svg)](https://docs.anthropic.com/en/docs/claude-code/getting-started)
-[![Version](https://img.shields.io/badge/Version-1.5.9-green.svg)](CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-v2.1.71+-purple.svg)](https://code.claude.com)
+[![Version](https://img.shields.io/badge/Version-1.6.0-green.svg)](CHANGELOG.md)
 [![Author](https://img.shields.io/badge/Author-POPUP%20STUDIO-orange.svg)](https://popupstudio.ai)
 
 > **PDCA methodology + CTO-Led Agent Teams + AI coding assistant mastery for AI-native development**
@@ -36,8 +36,8 @@ bkit implements Context Engineering through three interconnected layers:
 
 | Layer | Components | Purpose |
 |-------|------------|---------|
-| **Domain Knowledge** | 27 Skills | Structured expert knowledge (phases, levels, specialized domains) |
-| **Behavioral Rules** | 16 Agents | Role-based constraints with model selection (opus/sonnet/haiku) |
+| **Domain Knowledge** | 28 Skills | Structured expert knowledge (phases, levels, specialized domains) |
+| **Behavioral Rules** | 21 Agents | Role-based constraints with model selection (opus/sonnet/haiku) |
 | **State Management** | 241 Functions | PDCA status, intent detection, ambiguity scoring, multi-feature context, team coordination |
 
 ### 5-Layer Hook System
@@ -60,6 +60,7 @@ Layer 5: Scripts (45 modules)    → Actual Node.js execution logic with unified
 
 ![bkit Features](images/bkit-features.png)
 
+- **Skills 2.0 Complete Integration (v1.6.0)** - 19 ENH items (ENH-85~103), Skill Evals framework with 28 eval definitions, Skill Classification (Workflow/Capability/Hybrid), A/B testing, template-validator, frontmatter hooks migration, context:fork deprecation, PM Agent Team integration
 - **Executive Summary & Preview UX (v1.5.9)** - Auto-generated 4-perspective summaries (Problem/Solution/Function & UX Effect/Core Value), AskUserQuestion with rich Markdown previews, ENH-74~81 CC v2.1.69 compatibility, 199 exports
 - **Studio Support & Path Registry (v1.5.8)** - Centralized state file path management (`lib/core/paths.js`), PDCA doc path registry, config cleanup (dead keys removed, missing keys added), state directory migration to `.bkit/{state,runtime,snapshots}/`, auto-migration with EXDEV fallback, 190 exports
 - **/simplify + /batch PDCA Integration (v1.5.7)** - CC built-in /simplify and /batch commands integrated into PDCA Check→Report flow, CC_COMMAND_PATTERNS 8-language awareness, HTTP Hooks documentation, English conversion for 3 stop scripts
@@ -71,7 +72,7 @@ Layer 5: Scripts (45 modules)    → Actual Node.js execution logic with unified
 - **Output Styles Auto-Discovery (v1.5.3)** - `outputStyles` in plugin.json + 4th style `bkit-pdca-enterprise`
 - **CTO-Led Agent Teams (v1.5.1)** - CTO agent orchestrates parallel PDCA execution with multi-agent teams (Dynamic: 3, Enterprise: 5 teammates)
 - **Output Styles (v1.5.1)** - Level-based response formatting (bkit-learning, bkit-pdca-guide, bkit-enterprise, bkit-pdca-enterprise)
-- **Agent Memory (v1.5.1)** - Cross-session context persistence for all 16 agents (auto-active)
+- **Agent Memory (v1.5.1)** - Cross-session context persistence for all 21 agents (auto-active)
 - **Natural Feature Discovery (v1.5.1)** - Auto-trigger integration aligned with "Automation First" philosophy
 - **Task Management + PDCA Integration (v1.4.7)** - Task Chain Auto-Creation, Task ID Persistence, Check↔Act Iteration
 - **Core Modularization (v1.4.7)** - lib/common.js split into 5 modules (lib/core/, lib/pdca/, lib/intent/, lib/task/, lib/team/)
@@ -82,11 +83,86 @@ Layer 5: Scripts (45 modules)    → Actual Node.js execution logic with unified
 - **9-Stage Development Pipeline** - From schema design to deployment
 - **3 Project Levels** - Starter (static), Dynamic (fullstack), Enterprise (microservices)
 - **Multilingual Support** - 8 languages (EN, KO, JA, ZH, ES, FR, DE, IT)
-- **27 Skills** - Domain-specific knowledge for various development scenarios
-- **16 Agents** - Specialized AI assistants including CTO-Led Team agents
+- **28 Skills** - Domain-specific knowledge for various development scenarios
+- **21 Agents** - Specialized AI assistants including CTO-Led Team and PM Team agents
 - **45 Scripts** - Hook execution with unified handlers (hooks-json-integration)
 - **241 Utility Functions** - 5 modular libraries with state management, intent detection, task tracking, team coordination
 - **Check-Act Iteration Loop** - Automatic gap analysis and fix cycles with max 5 iterations (90% threshold)
+
+---
+
+## Skill Evals: Data-Driven Skill Quality Management
+
+Claude Code introduced **Skill Evals** in Skills 2.0—a framework for measuring skill quality through automated testing. bkit extends this concept into a **complete skill lifecycle management system** that answers a question no other plugin addresses: *"Are my skills still worth keeping?"*
+
+### What Are Skill Evals?
+
+Skill Evals run automated quality checks against skills by sending test prompts and comparing outputs against expected results. Think of them as **unit tests for AI skills**—they catch regressions when models update and measure whether a skill still adds value.
+
+### How bkit Enhances Skill Evals
+
+bkit builds three layers on top of Claude Code's native Evals:
+
+| Layer | Claude Code Native | bkit Enhancement |
+|-------|-------------------|------------------|
+| **Eval Execution** | Basic eval runner | `evals/runner.js` with benchmark mode, 28 pre-built eval definitions |
+| **A/B Testing** | Not available | `evals/ab-tester.js` compares skill performance across models (e.g., Sonnet 4.6 vs Opus 4.6) |
+| **Skill Classification** | Not available | All 28 skills classified as Workflow (10) / Capability (16) / Hybrid (2) with deprecation-risk scoring |
+
+```
+evals/
+├── config.json              # Global settings (thresholds, classifications)
+├── runner.js                # Eval execution engine (CLI + module)
+├── reporter.js              # Markdown/JSON result reporting
+├── ab-tester.js             # Model comparison + parity testing
+├── workflow/{10 skills}/    # Eval definitions for permanent skills
+├── capability/{16 skills}/  # Eval definitions for model-dependent skills
+└── hybrid/{1 skill}/        # Eval definitions for dual-purpose skills
+```
+
+### Skill Classification & Lifecycle
+
+Not all skills age the same way. bkit classifies each skill to manage its lifecycle:
+
+| Classification | Count | Purpose | What Evals Measure |
+|---------------|:-----:|---------|-------------------|
+| **Workflow** | 10 | Process automation (PDCA, pipelines) | Quality regression only—these skills are permanent |
+| **Capability** | 16 | Model ability augmentation (mockups, APIs) | **Parity testing**—can the model match this skill's output without it? |
+| **Hybrid** | 2 | Both process + capability | Both regression and parity |
+
+When a model upgrade makes a Capability skill redundant, the **Model Parity Test** detects it:
+
+```bash
+# Does the model now produce equivalent results without this skill?
+node evals/ab-tester.js --parity phase-3-mockup --model claude-opus-4-6
+
+# Compare skill performance between two models
+node evals/ab-tester.js --skill pdca --modelA claude-sonnet-4-6 --modelB claude-opus-4-6
+
+# Run all 28 skill evaluations
+node evals/runner.js --benchmark
+```
+
+### What Changes for Users
+
+| Before (v1.5.9) | After (v1.6.0 with Evals) |
+|-----------------|--------------------------|
+| 28 skills, no quality measurement | 28 skills, each with automated eval definitions |
+| No way to know if a skill degraded after model update | Benchmark detects regression across all skills |
+| Manual judgment on skill usefulness | Data-driven deprecation recommendations |
+| Skills accumulate indefinitely | Skill lifecycle: create → eval → deprecate → remove |
+| "Does this skill help?" is a guess | Parity test gives a quantified answer |
+
+### Integration with PDCA
+
+Skill Evals connect directly to bkit's PDCA workflow:
+
+- **Skill Creator** (`skill-creator/`) generates new skills with eval templates pre-included
+- **Template Validator** ensures PDCA documents maintain required sections
+- **Classification metadata** in every SKILL.md frontmatter enables automated lifecycle decisions
+- **Quarterly benchmarks** track skill quality trends over time
+
+> **Philosophy**: bkit's third principle is *"No Guessing."* Skill Evals replace intuition with measurement—you never have to guess whether a skill is still earning its place in your workflow.
 
 ---
 
@@ -260,8 +336,9 @@ git commit -m "feat: customize bkit starter skill"
 /enterprise   # Microservices with K8s (Enterprise level)
 ```
 
-### PDCA Workflow (v1.4.4 - Skills-based)
+### PDCA Workflow (v1.6.0 - Skills 2.0)
 ```bash
+/pdca pm {feature}       # PM analysis & PRD generation (pre-Plan)
 /pdca plan {feature}     # Create plan document
 /pdca design {feature}   # Create design document
 /pdca do {feature}       # Implementation guide
@@ -298,15 +375,38 @@ CTO-Led Agent Teams enable parallel PDCA execution with multiple AI agents orche
 - Set environment variable: `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`
 - Claude Code v2.1.32+
 
-**Available Team Agents (5 new):**
+**Available Team Agents:**
 
-| Agent | Model | Role |
-|-------|-------|------|
-| cto-lead | opus | Team orchestration, PDCA workflow management |
-| frontend-architect | sonnet | UI/UX design, component architecture |
-| product-manager | sonnet | Requirements analysis, feature prioritization |
-| qa-strategist | sonnet | Test strategy, quality metrics coordination |
-| security-architect | opus | Vulnerability analysis, auth design review |
+| Team | Agent | Model | Role |
+|------|-------|-------|------|
+| CTO | cto-lead | opus | Team orchestration, PDCA workflow management |
+| CTO | frontend-architect | sonnet | UI/UX design, component architecture |
+| CTO | product-manager | sonnet | Requirements analysis, feature prioritization |
+| CTO | qa-strategist | sonnet | Test strategy, quality metrics coordination |
+| CTO | security-architect | opus | Vulnerability analysis, auth design review |
+| PM | pm-lead | opus | PM Team orchestration, PRD synthesis |
+| PM | pm-discovery | sonnet | Opportunity Solution Tree analysis |
+| PM | pm-strategy | sonnet | Value Proposition, Lean Canvas |
+| PM | pm-research | sonnet | Personas, competitors, market sizing |
+| PM | pm-prd | sonnet | PRD document generation |
+
+### PM Agent Team (v1.6.0)
+
+PM Agent Team runs **before** the Plan phase to produce a comprehensive PRD (Product Requirements Document) through automated product discovery.
+
+```bash
+# Run PM analysis before planning
+/pdca pm user-authentication
+
+# Then proceed with PDCA planning (PRD auto-referenced)
+/pdca plan user-authentication
+```
+
+**How it works:**
+1. pm-lead (opus) collects project context and git history
+2. Three agents run in parallel: discovery (Opportunity Solution Tree), strategy (JTBD + Lean Canvas), research (Personas + Competitors + TAM/SAM/SOM)
+3. pm-prd synthesizes all findings into an 8-section PRD at `docs/00-pm/{feature}.prd.md`
+4. Plan phase automatically references the PRD for higher-quality planning
 
 ---
 
@@ -358,8 +458,8 @@ bkit is **primarily designed for software development**. However, some component
 ### Component Reference
 
 - [Development Pipeline](skills/development-pipeline/SKILL.md) - 9-stage pipeline skill
-- [Skills Reference](skills/) - 27 domain skills (Commands deprecated in v1.4.4)
-- [Agents Reference](agents/) - 16 specialized agents (including 5 CTO Team agents)
+- [Skills Reference](skills/) - 28 domain skills (Commands deprecated in v1.4.4)
+- [Agents Reference](agents/) - 21 specialized agents (including 5 CTO Team + 5 PM Team agents)
 
 ### PDCA Documents
 
@@ -462,7 +562,7 @@ The software industry has spent decades refining how humans write code—version
 
 - **Verification over trust.** AI generates plausible code. Plausible is not correct. Every implementation goes through gap analysis against its design document. If the match rate falls below 90%, the system iterates automatically. We do not ship hope.
 
-- **Context over prompts.** A well-structured prompt helps once. A well-structured context system helps every time. bkit's 241 functions, 27 skills, and 16 agents exist to ensure the AI receives the right context at the right moment—not through clever prompting, but through systematic engineering.
+- **Context over prompts.** A well-structured prompt helps once. A well-structured context system helps every time. bkit's 241 functions, 28 skills, and 21 agents exist to ensure the AI receives the right context at the right moment—not through clever prompting, but through systematic engineering.
 
 - **Constraints over features.** We intentionally limit what bkit does. Three project levels, not infinite configuration. A fixed 9-stage pipeline, not a customizable workflow builder. Opinionated defaults, not a framework for frameworks. Constraints eliminate decision fatigue and make the system learnable.
 

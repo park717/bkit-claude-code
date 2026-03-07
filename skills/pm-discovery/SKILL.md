@@ -1,5 +1,8 @@
 ---
 name: pm-discovery
+classification: workflow
+classification-reason: PM process orchestration independent of model capability evolution
+deprecation-risk: none
 description: |
   PM Agent Team - Automated product discovery, strategy, and PRD generation.
   Runs 4 specialized PM agents in parallel to produce a comprehensive PRD

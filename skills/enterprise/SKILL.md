@@ -1,5 +1,8 @@
 ---
 name: enterprise
+classification: capability
+classification-reason: Specialized domain knowledge with limited model overlap
+deprecation-risk: low
 description: |
   Enterprise-grade system development with microservices, Kubernetes, and Terraform.
   Includes AI Native methodology and Monorepo architecture patterns.

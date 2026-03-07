@@ -28,6 +28,7 @@ Display the following help message:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 PDCA (Document-Driven Development)
+  /pdca pm <feature>         PM Agent Team analysis (pre-Plan, v1.6.0)
   /pdca plan <feature>       Start planning a new feature
   /pdca design <feature>     Create design document
   /pdca do <feature>         Implementation guide
@@ -60,7 +61,7 @@ Learning
   /claude-code-learning          Learn Claude Code
   /claude-code-learning setup    Analyze current project setup
 
-Code Quality (v1.5.9)
+Code Quality (v1.6.0)
   /simplify                  Review changed code for reuse, quality, efficiency
   /batch                     Process multiple features in batch mode
 
@@ -87,7 +88,7 @@ Output Styles (v1.5.3)
 
 | Function | Description |
 |----------|-------------|
-| `/pdca` | PDCA cycle management (plan, design, do, analyze, iterate, report, archive, cleanup, team, status, next) |
+| `/pdca` | PDCA cycle management (pm, plan, design, do, analyze, iterate, report, archive, cleanup, team, status, next) |
 | `/starter` | Starter project (HTML/CSS/Next.js) |
 | `/dynamic` | Dynamic project (bkend.ai BaaS) |
 | `/enterprise` | Enterprise project (K8s/Terraform) |
@@ -114,9 +115,9 @@ Output Styles (v1.5.3)
 | `/phase-8-review` | Code review and gap analysis |
 | `/phase-9-deployment` | Production deployment (CI/CD, K8s) |
 
-### Agents (16, auto-triggered by keywords)
+### Agents (21, auto-triggered by keywords)
 
-#### Core Agents (16)
+#### Core Agents (11)
 
 | Agent | Trigger Keywords | Model |
 |-------|-----------------|-------|
@@ -141,6 +142,26 @@ Output Styles (v1.5.3)
 | product-manager | requirements, feature spec, priority | sonnet | Requirements analysis, feature prioritization |
 | qa-strategist | test strategy, QA plan, quality metrics | sonnet | Test strategy, quality metrics coordination |
 | security-architect | security, vulnerability, OWASP | opus | Vulnerability analysis, authentication design review |
+
+#### PM Agent Team (5, v1.6.0)
+
+| Agent | Trigger Keywords | Model | Role |
+|-------|-----------------|-------|------|
+| pm-lead | pm team, product discovery, PM analysis | sonnet | PM Team orchestrator, discovery workflow |
+| pm-discovery | market research, user research | sonnet | Market and user research |
+| pm-strategy | product strategy, positioning | sonnet | Product strategy and positioning |
+| pm-research | competitive analysis, trend research | sonnet | Competitive analysis, data gathering |
+| pm-prd | PRD, product requirements document | sonnet | PRD document generation |
+
+**How to Use PM Agent Team (v1.6.0):**
+```bash
+# Run PM analysis before planning (recommended)
+/pdca pm {feature}
+
+# PM Team produces PRD → docs/00-pm/{feature}.prd.md
+# Then continue with PDCA Plan (PRD auto-referenced)
+/pdca plan {feature}
+```
 
 **How to Use CTO-Led Agent Teams:**
 ```bash
@@ -177,6 +198,15 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 | Output Styles | `/output-style` | Custom response formatting |
 | TaskCompleted Hook | Automatic | Auto-advance PDCA phases on task completion |
 | TeammateIdle Hook | Automatic | Assign work to idle teammates |
+
+### v1.6.0 Features
+
+| Feature | Activation | Description |
+|---------|-----------|-------------|
+| PM Agent Team | `/pdca pm {feature}` | 5 PM agents for pre-Plan product discovery |
+| Skill Classification | Automatic | 10 Workflow / 16 Capability / 2 Hybrid |
+| Skill Evals | `evals/` directory | 28 eval definitions for skill quality measurement |
+| Skill Hot Reload | `/reload-plugins` | Apply skill changes without session restart |
 
 ### v1.5.3 Features
 

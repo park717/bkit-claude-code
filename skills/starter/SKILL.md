@@ -1,5 +1,8 @@
 ---
 name: starter
+classification: capability
+classification-reason: Pattern guidance may overlap with model's built-in knowledge as it improves
+deprecation-risk: medium
 description: |
   Static web development skill for beginners and non-developers.
   Covers HTML/CSS/JavaScript and Next.js App Router basics.

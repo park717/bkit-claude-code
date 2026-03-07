@@ -1,5 +1,8 @@
 ---
 name: phase-2-convention
+classification: workflow
+classification-reason: Process automation persists regardless of model advancement
+deprecation-risk: none
 description: |
   Skill for defining coding rules and conventions.
   Ensures consistent code style and specifies coding standards for AI collaboration.

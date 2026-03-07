@@ -1,5 +1,8 @@
 ---
 name: bkend-quickstart
+classification: capability
+classification-reason: Pattern guidance may overlap with model's built-in knowledge as it improves
+deprecation-risk: medium
 description: |
   bkend.ai platform onboarding and core concepts guide.
   Covers MCP setup, resource hierarchy (Org->Project->Environment),

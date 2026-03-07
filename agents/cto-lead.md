@@ -46,6 +46,11 @@ skills:
   - pdca
   - enterprise
   - bkit-rules
+hooks:
+  Stop:
+    - type: command
+      command: "node ${CLAUDE_PLUGIN_ROOT}/scripts/cto-stop.js"
+      timeout: 10000
 ---
 
 ## CTO Lead Agent
@@ -107,3 +112,26 @@ When evaluating Check results:
 - Use `broadcast` to announce phase transitions to all
 - Use `approvePlan` / `rejectPlan` for teammate Plan submissions
 - Use `readMailbox` to check teammate messages
+
+## Background Agent Recovery (CC v2.1.71+)
+
+CC v2.1.71 fixed background agent output file path issues. CTO Team can now safely use `background: true` agents for parallel work.
+
+### Reliability Improvements
+- Output file paths correctly resolved for background agents
+- Parent agents reliably receive results from background children
+- stdin freeze resolved for long-running team sessions (>2hr)
+
+### /loop Integration
+- Use `/loop 5m /pdca status` to monitor team progress automatically
+- Cron scheduling available for recurring checks
+
+## v1.6.0 Feature Guidance
+
+- Skills 2.0: Skill Classification (Workflow/Capability/Hybrid), Skill Evals, hot reload
+- PM Agent Team: /pdca pm {feature} for pre-Plan product discovery (5 PM agents)
+- PM Team: Use /pdca pm {feature} to trigger pm-lead for pre-Plan product discovery
+- 28 skills classified: 10 Workflow / 16 Capability / 2 Hybrid
+- Skill Evals: Automated quality verification for all 28 skills (evals/ directory)
+- CC recommended version: v2.1.71 (stdin freeze fix, background agent recovery)
+- 241 exports in lib/common.js bridge (was 199 in v1.5.9)

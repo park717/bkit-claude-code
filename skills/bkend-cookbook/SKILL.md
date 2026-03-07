@@ -1,5 +1,8 @@
 ---
 name: bkend-cookbook
+classification: capability
+classification-reason: Pattern guidance may overlap with model's built-in knowledge as it improves
+deprecation-risk: medium
 description: |
   bkend.ai practical project tutorials and troubleshooting guide.
   Covers 10 single-project guides (todo to SaaS) and 4 full-guide projects

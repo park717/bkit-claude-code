@@ -1,5 +1,8 @@
 ---
 name: development-pipeline
+classification: workflow
+classification-reason: Process automation persists regardless of model advancement
+deprecation-risk: none
 description: |
   9-phase Development Pipeline complete knowledge.
   Use when user doesn't know development order or starts a new project from scratch.

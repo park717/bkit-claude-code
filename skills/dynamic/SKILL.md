@@ -1,5 +1,8 @@
 ---
 name: dynamic
+classification: capability
+classification-reason: Pattern guidance may overlap with model's built-in knowledge as it improves
+deprecation-risk: medium
 description: |
   Fullstack development skill using bkend.ai BaaS platform.
   Covers authentication, data storage, API integration for dynamic web apps.
