@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 /**
- * pre-write.js - Unified PreToolUse/BeforeTool hook for Write|Edit operations (v2.0.0)
- * Supports: Claude Code (PreToolUse), Gemini CLI (BeforeTool)
+ * pre-write.js - Unified PreToolUse hook for Write|Edit operations (v2.0.0)
  *
  * Purpose: PDCA check, task classification, convention hints, permission check,
  *          destructive detection, blast radius, scope limiting, audit logging
- * Hook: PreToolUse (Claude Code) / BeforeTool (Gemini CLI)
+ * Hook: PreToolUse (Claude Code)
  * Philosophy: Automation First - Guide, don't block
  *
  * v2.0.0 Changes:

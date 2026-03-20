@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 /**
- * pdca-post-write.js - Guide next steps after Write operation (v1.4.0)
- * Supports: Claude Code (PostToolUse), Gemini CLI (AfterTool)
+ * pdca-post-write.js - Guide next steps after Write operation (v2.0.0)
  *
  * Purpose: Suggest gap analysis after source file modifications
- * Hook: PostToolUse (Claude Code) / AfterTool (Gemini CLI)
+ * Hook: PostToolUse (Claude Code)
  *
  * v1.4.0 Changes:
  * - Added debug logging for hook verification

@@ -1,8 +1,8 @@
 # bkit - Vibecoding Kit
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-v2.1.78+-purple.svg)](https://code.claude.com)
-[![Version](https://img.shields.io/badge/Version-1.6.2-green.svg)](CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-v2.1.79+-purple.svg)](https://code.claude.com)
+[![Version](https://img.shields.io/badge/Version-2.0.0-green.svg)](CHANGELOG.md)
 [![Author](https://img.shields.io/badge/Author-POPUP%20STUDIO-orange.svg)](https://popupstudio.ai)
 
 > **PDCA methodology + CTO-Led Agent Teams + AI coding assistant mastery for AI-native development**
@@ -36,20 +36,20 @@ bkit implements Context Engineering through three interconnected layers:
 
 | Layer | Components | Purpose |
 |-------|------------|---------|
-| **Domain Knowledge** | 31 Skills | Structured expert knowledge (phases, levels, specialized domains) |
-| **Behavioral Rules** | 29 Agents | Role-based constraints with model selection (opus/sonnet/haiku) |
-| **State Management** | 210 Functions | PDCA status, intent detection, ambiguity scoring, multi-feature context, team coordination |
+| **Domain Knowledge** | 36 Skills | Structured expert knowledge (phases, levels, specialized domains) |
+| **Behavioral Rules** | 31 Agents | Role-based constraints with model selection (opus/sonnet/haiku) |
+| **State Management** | 260+ Functions | PDCA status, intent detection, ambiguity scoring, multi-feature context, team coordination |
 
 ### 6-Layer Hook System
 
 Context injection occurs at six distinct layers:
 
 ```
-Layer 1: hooks.json (Global)     → SessionStart, UserPromptSubmit, PreCompact, PostCompact, PreToolUse, PostToolUse, Stop, StopFailure + 4 more (12 events)
+Layer 1: hooks.json (Global)     → SessionStart, UserPromptSubmit, PreCompact, PostCompact, PreToolUse, PostToolUse, Stop, StopFailure + 10 more (18 events)
 Layer 2: Skill Frontmatter       → Domain-specific hooks (deprecated in v1.4.4, use hooks.json)
 Layer 3: Agent Frontmatter       → Task-specific hooks with constraints
 Layer 4: Description Triggers    → Semantic matching in 8 languages
-Layer 5: Scripts (49 modules)    → Actual Node.js execution logic with unified handlers
+Layer 5: Scripts (54 modules)    → Actual Node.js execution logic with unified handlers
 Layer 6: Plugin Data Backup      → ${CLAUDE_PLUGIN_DATA} persistent state management
 ```
 
@@ -61,7 +61,8 @@ Layer 6: Plugin Data Backup      → ${CLAUDE_PLUGIN_DATA} persistent state mana
 
 ![bkit Features](images/bkit-features.png)
 
-- **CC v2.1.78 Full Integration (v1.6.2)** - 14 ENH items (ENH-117~130), PostCompact/StopFailure hooks, ${CLAUDE_PLUGIN_DATA} persistent backup, agent effort/maxTurns, 1M context default, 128K output, 1186 TC (99.7%), 210 exports, 49 scripts, CC v2.1.78 recommended
+- **AI Native Development OS (v2.0.0)** - Declarative PDCA state machine (20 transitions), YAML workflow DSL (3 presets), L0-L4 controllable AI automation, CLI dashboard (progress-bar, workflow-map, control-panel), audit logging + decision tracing, quality gates (7 stages), checkpoint/rollback, destructive operation detector (8 rules), MCP servers (bkit-pdca + bkit-analysis), 2,717 TC (99.6%), 260+ exports, 54 scripts, 36 skills, 31 agents, 18 hook events
+- **CC v2.1.78 Full Integration (v1.6.2)** - 14 ENH items (ENH-117~130), PostCompact/StopFailure hooks, ${CLAUDE_PLUGIN_DATA} persistent backup, agent effort/maxTurns, 1M context default, 128K output, 1186 TC (99.7%), 260+ exports, 54 scripts, CC v2.1.78 recommended
 - **CTO Orchestration Redesign + Quality Hardening (v1.6.1)** - Main Session as CTO pattern (CC v2.1.69+ compatibility), P0 bug fixes (4), Config-Code synchronization, 3-Tier Agent Security Model, 1073 TC comprehensive test (99.6% pass), CE Level 5 assessment (88/100), 72 files ~1,400 LOC
 - **Skills 2.0 Complete Integration (v1.6.0)** - 19 ENH items (ENH-85~103), Skill Evals framework with 28 eval definitions, Skill Classification (Workflow/Capability/Hybrid), A/B testing, template-validator, frontmatter hooks migration, context:fork deprecation, PM Agent Team integration
 - **Executive Summary & Preview UX (v1.5.9)** - Auto-generated 4-perspective summaries (Problem/Solution/Function & UX Effect/Core Value), AskUserQuestion with rich Markdown previews, ENH-74~81 CC v2.1.69 compatibility, 199 exports
@@ -75,7 +76,7 @@ Layer 6: Plugin Data Backup      → ${CLAUDE_PLUGIN_DATA} persistent state mana
 - **Output Styles Auto-Discovery (v1.5.3)** - `outputStyles` in plugin.json + 4th style `bkit-pdca-enterprise`
 - **CTO-Led Agent Teams (v1.5.1)** - CTO agent orchestrates parallel PDCA execution with multi-agent teams (Dynamic: 3, Enterprise: 5 teammates)
 - **Output Styles (v1.5.1)** - Level-based response formatting (bkit-learning, bkit-pdca-guide, bkit-enterprise, bkit-pdca-enterprise)
-- **Agent Memory (v1.5.1)** - Cross-session context persistence for all 29 agents (auto-active)
+- **Agent Memory (v1.5.1)** - Cross-session context persistence for all 31 agents (auto-active)
 - **Natural Feature Discovery (v1.5.1)** - Auto-trigger integration aligned with "Automation First" philosophy
 - **Task Management + PDCA Integration (v1.4.7)** - Task Chain Auto-Creation, Task ID Persistence, Check↔Act Iteration
 - **Core Modularization (v1.4.7)** - lib/common.js split into 5 modules (lib/core/, lib/pdca/, lib/intent/, lib/task/, lib/team/)
@@ -86,10 +87,10 @@ Layer 6: Plugin Data Backup      → ${CLAUDE_PLUGIN_DATA} persistent state mana
 - **9-Stage Development Pipeline** - From schema design to deployment
 - **3 Project Levels** - Starter (static), Dynamic (fullstack), Enterprise (microservices)
 - **Multilingual Support** - 8 languages (EN, KO, JA, ZH, ES, FR, DE, IT)
-- **31 Skills** - Domain-specific knowledge for various development scenarios
-- **29 Agents** - Specialized AI assistants including 8 CTO/PM Team + 8 PDCA Eval agents
-- **49 Scripts** - Hook execution with unified handlers (hooks-json-integration)
-- **210 Utility Functions** - 5 modular libraries with state management, intent detection, task tracking, team coordination
+- **36 Skills** - Domain-specific knowledge for various development scenarios
+- **31 Agents** - Specialized AI assistants including 8 CTO/PM Team + 8 PDCA Eval agents
+- **54 Scripts** - Hook execution with unified handlers (hooks-json-integration)
+- **260+ Utility Functions** - 5 modular libraries with state management, intent detection, task tracking, team coordination
 - **Check-Act Iteration Loop** - Automatic gap analysis and fix cycles with max 5 iterations (90% threshold)
 
 ---
@@ -565,7 +566,7 @@ The software industry has spent decades refining how humans write code—version
 
 - **Verification over trust.** AI generates plausible code. Plausible is not correct. Every implementation goes through gap analysis against its design document. If the match rate falls below 90%, the system iterates automatically. We do not ship hope.
 
-- **Context over prompts.** A well-structured prompt helps once. A well-structured context system helps every time. bkit's 210 functions, 31 skills, and 29 agents exist to ensure the AI receives the right context at the right moment—not through clever prompting, but through systematic engineering.
+- **Context over prompts.** A well-structured prompt helps once. A well-structured context system helps every time. bkit's 260+ functions, 36 skills, and 31 agents exist to ensure the AI receives the right context at the right moment—not through clever prompting, but through systematic engineering.
 
 - **Constraints over features.** We intentionally limit what bkit does. Three project levels, not infinite configuration. A fixed 9-stage pipeline, not a customizable workflow builder. Opinionated defaults, not a framework for frameworks. Constraints eliminate decision fatigue and make the system learnable.
 
